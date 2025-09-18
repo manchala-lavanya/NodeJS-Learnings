@@ -1,0 +1,115 @@
+. What will the following code output?
+
+A) 10
+B) 20
+C) undefined
+D) NaN
+
+2. Which method is used to add a property with advanced control (writable, enumerable, configurable) to an object?
+
+A) Object.assign
+B) Object.create
+C) Object.defineProperty
+D) Object.freeze
+
+3. What is the result of the following code?
+
+A) Tesla
+B) undefined
+C) null
+D) Error
+
+4. True or False:
+Methods are properties whose values are functions.
+
+5. What does the following code print?
+
+A) 25
+B) 30
+C) undefined
+D) Error
+
+Answers:
+
+B
+C
+A
+True
+A
+
+
+JavaScript Prototypes and Inheritance: 10 MCQs
+1. What is the prototype of every JavaScript object by default?
+A) null
+B) Object.prototype
+C) Function.prototype
+D) Array.prototype
+
+2. Which method is used to set the prototype of an object?
+A) Object.setPrototypeOf
+B) Object.create
+C) Object.assign
+D) Object.defineProperty
+
+3. What does the instanceof operator check?
+A) If an object is an array
+B) If an object is a function
+C) If an object is an instance of a constructor
+D) If an object is null
+
+4. What will the following code output?
+
+A) undefined
+B) mammal
+C) null
+D) Error
+
+5. Which of the following is true about prototype chaining?
+A) Only the object's own properties are accessible
+B) Properties from the prototype chain are accessible
+C) Prototype chaining does not exist in JavaScript
+D) Only methods are inherited, not properties
+
+6. How do you create inheritance between two constructor functions?
+A) Using Object.assign
+B) Using Object.create
+C) Using Object.freeze
+D) Using Object.defineProperty
+
+7. What does Object.create(proto) do?
+A) Creates a new object with proto as its prototype
+B) Copies all properties from proto
+C) Freezes the object
+D) Deletes the prototype
+
+8. In ES6, which keyword is used for class inheritance?
+A) extends
+B) inherits
+C) prototype
+D) super
+
+9. What will the following code output?
+
+A) undefined
+B) Error
+C) Hello
+D) null
+
+10. Which property points to the prototype of a constructor function?
+A) proto
+B) prototype
+C) constructor
+D) parent
+
+Answers:
+
+B
+A
+C
+B
+B
+B
+A
+A
+C
+B
