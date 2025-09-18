@@ -1,12 +1,12 @@
 import fs from 'fs';
 
-// fs.readdir('./', (err, files) => {
-//     if (err) {
-//         console.error('Error reading directory:', err);
-//         return;
-//     }
-//     console.log('Files in current directory:', files);
-// });
+fs.readdir('./', (err, files) => {
+   if (err) {
+      console.error('Error reading directory:', err);
+        return;
+    }
+   console.log('Files in current directory:', files);
+ });
 
 async function listFiles() {
     try {
@@ -16,5 +16,6 @@ async function listFiles() {
         console.error('Error reading directory:', err);
     }   
 }
+
 
 listFiles();
