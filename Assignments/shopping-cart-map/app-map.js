@@ -1,63 +1,87 @@
-//app-map.js 
+// file contains product and shopping cart classes, then exports them
 
-const readline = require('readline');
-const { Product, ShoppingCart } = require('./shopping-map'); // import classes
- 
-const rl = readline.createInterface({ // readline interface
-  input: process.stdin,
-  output: process.stdout
-});
- 
-const cart = new ShoppingCart();
- 
-function showMenu() {
-  console.log("\n****** Shopping Cart Menu ******");
-  console.log("1. Add Product");
-  console.log("2. Remove Product");
-  console.log("3. Show Total Price");
-  console.log("4. View Cart");
-  console.log("5. Exit");
- 
-  rl.question("Enter your choice: ", (choice) => {
-    switch (choice) {
-      case "1":
-        rl.question("Enter the product name: ", (name) => {
-          rl.question("Enter the product price: ", (price) => {
-            const product = new Product(name, parseFloat(price));
-            cart.addProduct(product);
-            showMenu();
-          });
-        });
-        break;
- 
-      case "2":
-        rl.question("Enter product name to remove: ", (name) => {
-          cart.removeProduct(name);
-          showMenu();
-        });
-        break;
- 
-      case "3":
-        console.log("Total Price:", cart.calculateTotal());
-        showMenu();
-        break;
- 
-      case "4":
-        cart.viewCart();
-        showMenu();
-        break;
- 
-      case "5":
-        console.log("Goodbye!");
-        rl.close();
-        break;
- 
-      default:
-        console.log("Invalid choice, please try again!!!");
-        showMenu();
+class Product {
+  constructor(productName, productPrice, quantity = 1) {
+    this.productName = productName.trim().toLowerCase(); // name is immutable
+
+    // Validation: name must not be empty
+    if(!this.productName) {
+        throw new Error("Product name cannot be empty.");   
     }
-  });
+
+    //Validation: price must be a positive number
+    if(isNaN(productPrice) || productPrice <= 0) { //Price validation
+        throw new Error("Invalid price! Price must be a positive number.");
+    }
+
+    //Validation: quantity using static method
+    if(!Product.isValidQuantity(quantity)) { //Quantity validation
+        throw new Error("Quantity must be a positive integer.");
+    }
+    
+    this.productPrice = productPrice; // price is mutable
+    this.quantity = quantity; // quantity is mutable
+  }
+
+  //static function to validate quantity
+  static isValidQuantity(quantity) {
+        return Number.isInteger(quantity) && quantity > 0;
+    }
+}
+
+class ShoppingCart {
+  constructor() {
+    // use Map with productName as key and product object as value
+    this.productMap = new Map();
+  }
+ 
+  addProduct(product) 
+  {
+    if(this.productMap.has(product.productName)) { // check if product exists - increase quantity
+        let existingProduct = this.productMap.get(product.productName);
+        existingProduct.quantity += product.quantity;
+        console.log(`Quantity of ${product.productName} updated to ${existingProduct.quantity}.`);
+        return;
+    }
+    if(this.productMap.size >= 3)  //Cart size validation - only for unique products
+    {
+        console.log("You can only add upto 3 unique products in the cart.");
+        return;
+    }
+    else 
+    {
+        this.productMap.set(product.productName, product); // add product to map
+        console.log(`${product.productName} is added to cart (Quantity: ${product.quantity})`);
+    }
+  }
+ 
+  removeProduct(productName) {
+    if (this.productMap.has(productName)) { // check if product exists
+      this.productMap.delete(productName); // remove product from map
+      console.log(`${productName} is removed from cart`);
+    } else { // product not found
+      console.log(`${productName} is not found in cart`);
+    }
+  }
+ 
+  calculateTotal() { // calculate total price of products in cart
+    let total = 0;
+    for (let product of this.productMap.values()) { 
+      total += product.productPrice * product.quantity; // sum up price * quantity
+    }
+    return total;
+  }
+ 
+  viewCart() { // display all products in cart
+    if (this.productMap.size === 0) { // check if cart is empty
+      console.log("Cart is empty.");
+      return;
+    }
+    console.log("\nProducts in Cart:");
+    for (let product of this.productMap.values()) { // iterate over map values
+      console.log(`- ${product.productName}: ${product.productPrice} x ${product.quantity} = ${product.productPrice * product.quantity}`); // display product details
+    }
+  }
 }
  
-// start program
-showMenu();
+module.exports = { Product, ShoppingCart }; // export classes for use in other files
