@@ -2,7 +2,7 @@
 
 class Product {
   constructor(productName, productPrice, quantity = 1) {
-    this.productName = productName.trim().toLowerCase(); // name is immutable
+    this.productName = productName.trim().toLowerCase(); // name is immutable - trim and lowercase for consistency
 
     // Validation: name must not be empty
     if(!this.productName) {
@@ -14,13 +14,19 @@ class Product {
         throw new Error("Invalid price! Price must be a positive number.");
     }
 
-    //Validation: quantity must be a positive integer
-    if(!Number.isInteger(quantity) || quantity <= 0) { //Quantity validation
-        throw new Error("Invalid! Quantity must be a positive integer.");
+    //Validation: quantity using static method
+    if(!Product.isValidQuantity(quantity)) { //Quantity validation
+        throw new Error("Quantity must be a positive integer.");
     }
+    
     this.productPrice = productPrice; // price is mutable
     this.quantity = quantity; // quantity is mutable
   }
+
+  //static function to validate quantity
+  static isValidQuantity(quantity) {
+        return Number.isInteger(quantity) && quantity > 0;
+    }
 }
 
 class ShoppingCart {
