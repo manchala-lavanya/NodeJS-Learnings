@@ -1,7 +1,12 @@
+const { createRecordValidator } = require("../utils/validation.js");
+
 module.exports = app => {
   const tutorials = require("../controllers/tutorial.controller.js");
 
   const router = require("express").Router();
+
+  //Create a new Record
+  router.post("/", createRecordValidator, tutorials.create);
 
   // Create a new Tutorial
   router.post("/", tutorials.create);
