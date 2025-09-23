@@ -1,11 +1,14 @@
-const { createRecordValidator } = require("../utils/validation.js");
+//Import validation middleware
+const { createRecordValidator } = require("../utils/validation.js"); 
 
 module.exports = app => {
+  //Import tutorial controller functions
   const tutorials = require("../controllers/tutorial.controller.js");
-
+  //Import Express router
   const router = require("express").Router();
 
-  //Create a new Record
+
+  //Create a new Tutorial with validation
   router.post("/", createRecordValidator, tutorials.create);
 
   // Create a new Tutorial
