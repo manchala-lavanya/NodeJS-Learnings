@@ -3,8 +3,8 @@ const { body } = require('express-validator');
 
 //Validator to check for duplicate title
 const checkDuplicateTitles = async (title) => {
-    //To check if a tutorial with the same title already exists
-    const existingTutorial = await tutorials.findOne({ 'title': title });
+    //To check if a tutorial with the same title already exists & checks for case insensitive
+     const existingTutorial = await tutorials.findOne({ 'title': { $regex: new RegExp(`^${title}$`, 'i') } });
     if (existingTutorial) {
         throw new Error('Title already exists.');
     }
